@@ -103,3 +103,9 @@ def test_load_missing_file(tmp_path):
 
     with pytest.raises(FileNotFoundError):
         load_data(missing_path)
+
+
+# Celowo niepoprawny test do sprawdzenia CI
+def test_intentional_ci_failure():
+    assert 2 + 2 == 5
+
