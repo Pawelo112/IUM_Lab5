@@ -1,0 +1,34 @@
+# Srodowisko wirtualne
+.venv/
+venv/
+
+# Pliki tymczasowe Pythona
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Git i IDE
+.git/
+.idea/
+.ipynb_checkpoints/
+
+# Lokalne dane, modele i raporty
+data/
+models/
+results/
+
+# Konfiguracje lokalne
+.env
+.env.train
+.env.visualize
+
+# Pliki testowe i pomocnicze
+tests/
+*.log
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Osobna usluga visualize
+visualize/

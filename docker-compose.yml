@@ -1,0 +1,60 @@
+services:
+
+  # Usługa treningowa ML
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: ium-lab5-ml:1.0
+    container_name: ium-lab5-train
+
+    env_file:
+      - .env.train
+
+    # Pelny pipeline trening + ewaluacja
+    command: ["python", "-u", "runner.py"]
+
+    volumes:
+      - ./data:/app/data:ro
+      - ./models:/app/models
+      - ./results:/app/results
+
+    # Ograniczenie zasobow
+    mem_limit: 1g
+    cpus: 1.5
+
+    # Kontrola gotowosci po zakonczeniu treningu
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/status', timeout=2)"
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 20s
+
+  # Usługa wizualizacji wynikow
+  visualize:
+    build:
+      context: ./visualize
+      dockerfile: Dockerfile
+
+    image: ium-lab5-visualize:1.0
+    container_name: ium-lab5-visualize
+
+    env_file:
+      - .env.visualize
+
+    ports:
+      - "127.0.0.1:8085:8080"
+
+    volumes:
+      - ./results:/site:ro
+      - ./models:/models:ro
+
+    depends_on:
+      train:
+        condition: service_healthy

@@ -1,0 +1,28 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# PyCharm
+.idea/
+
+# Lokalna konfiguracja
+.env
+.env.train
+.env.visualize
+.env.*
+
+# Wygenerowane modele i raporty
+models/
+results/
+
+# GitHub / system
+.DS_Store
+Thumbs.db
+
+# Pliki tymczasowe
+*.log
+
+!.env.example
